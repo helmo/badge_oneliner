@@ -32,12 +32,12 @@ def load_entries(limit, offset):
     sleep(0.1)
     pass
 
-  debug("Got wifi. Loading data. Limit: "+str(limit)+", Offset: "+str(offset))
+  debug("Got wifi. Loading data.")
 
   data=None
   try:
-    url = "http://188.40.158.211/oneliner.csv?limit="+str(limit)+"&page="+str(offset)
-    r = requests.get(url, headers={"Host": "poc.sha2017.org"}, host_override="poc.sha2017.org")
+    url = "http://83.137.144.16/api/oneliner"
+    r = requests.get(url, headers={"Host": "defeest.nl"}, host_override="defeest.nl")
     data = r.text
     r.close()
   except Exception as e:
@@ -49,8 +49,8 @@ def load_entries(limit, offset):
     for entry in data.split('\n'):
       if entry == "":
         continue
-      extension = entry.split(',')[0]
-      name = (entry.split(',')[1]).replace('"', '')
+      #extension = entry.split(',')[0]
+      name = (entry.split(',')[0]).replace('"', '')
       entries.append((extension,name))
     debug("Loaded "+str(len(entries))+" entries")
     return entries
